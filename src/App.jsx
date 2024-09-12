@@ -1,8 +1,9 @@
 import AddTasks from "./components/AddTasks";
 import Tasks from "./components/Tasks";
+import { useState } from "react";
 
 function App() {
-  const tasks = [
+  const [tasks, setTasks] = useState([
     {
       id: 1,
       title: "estudar",
@@ -27,7 +28,23 @@ function App() {
       description: "estudar linguagem italiana",
       isCompleted: false,
     },
-  ];
+  ]);
+
+  function onTaskClick(taskId) {
+    const newTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, isCompleted: !task.isCompleted };
+      }
+      return task;
+    });
+    setTasks(newTasks);
+  }
+
+  function onDeleteTaskClick(taskId) {
+    const newTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(newTasks);
+  }
+
   return (
     <div className="w-screen h-screen bg-slate-500 flex justify-center p-6">
       <main className="w-[500px]">
@@ -35,7 +52,11 @@ function App() {
           Gerenciador de tarefas
         </h1>
         <AddTasks />
-        <Tasks tasks={tasks} />
+        <Tasks
+          tasks={tasks}
+          onTaskClick={onTaskClick}
+          onDeleteTaskClick={onDeleteTaskClick}
+        />
       </main>
     </div>
   );
