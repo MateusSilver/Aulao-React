@@ -12,6 +12,24 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  useEffect(() => {
+    // CRIA FUNÇÃO PARA USAR ASSINCRONISMO
+    async function fetchTasks() {
+      // CHAMA API COM FETCH
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/todos?_limit=5",
+        { method: "GET" }
+      );
+      // PEGA OS DADOS QUE ELA RETORNA EM JSON
+      const data = await response.json();
+
+      //ARMAZENA E PERSISTE ESSES DADOS NO STATE
+      setTasks(data);
+    }
+    // CHAMA FUNÇÃO ASSINCRONA PARA API DE TAREFAS
+    //fetchTasks();
+  }, []); // se a lista no segundo parametro é vazia vai executar só na primeira vez que o usuário acessar a pagina
+
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
       if (task.id === taskId) {
