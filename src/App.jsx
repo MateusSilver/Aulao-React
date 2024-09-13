@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
-
+  /*
   useEffect(() => {
     // CRIA FUNÇÃO PARA USAR ASSINCRONISMO
     async function fetchTasks() {
@@ -28,8 +28,9 @@ function App() {
       setTasks(data);
     }
     // CHAMA FUNÇÃO ASSINCRONA PARA API DE TAREFAS
-    //fetchTasks();
+    fetchTasks();
   }, []); // se a lista no segundo parametro é vazia vai executar só na primeira vez que o usuário acessar a pagina
+  */
 
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
